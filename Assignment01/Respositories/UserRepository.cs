@@ -1,27 +1,17 @@
-namespace Assignment01.Services;
-
 using Assignment01.Interfaces;
 using Assignment01.Models;
 
+namespace Assignment01.Services;
+
 public class UserRepository : IBaseRepository<User>
 {
-    public void Add(User t)
-    {
-        throw new NotImplementedException();
-    }
+    private readonly Dictionary<string, User> _users = new();
 
-    public bool Exists(string id)
-    {
-        throw new NotImplementedException();
-    }
+    public void Add(User user) => _users[user.UserId] = user;
 
-    public IEnumerable<User> GetAll()
-    {
-        throw new NotImplementedException();
-    }
+    public bool Exists(string userId) => _users.ContainsKey(userId);
 
-    public User? GetById(string id)
-    {
-        throw new NotImplementedException();
-    }
+    public IEnumerable<User> GetAll() => _users.Values;
+
+    public User? GetById(string userId) => _users.TryGetValue(userId, out var u) ? u : null;
 }

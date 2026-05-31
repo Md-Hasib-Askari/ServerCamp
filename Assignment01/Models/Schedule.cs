@@ -27,6 +27,8 @@ public class Schedule
         BusRef = bus;
     }
 
+    public void ReserveSeat(int seatNumber) => _reservedSeat.Add(seatNumber);
+
     public bool IsSeatAvailable(int seatNumber)
     {
         return seatNumber >= 1

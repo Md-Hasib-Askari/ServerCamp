@@ -20,6 +20,7 @@ public class Bus
         BusId = busId;
         CoachNumber = coachNumber;
         CoachClass = coachVariant;
+        TotalSeats = SeatingCapacity[coachVariant];
     }
 
     public override string ToString()
