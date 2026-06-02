@@ -352,7 +352,11 @@ public class MenuHandler
         ConsoleHelper.PressAnyKey();
     }
 
-    // "12A" -> seat number. Column count must match PrintSeatGrid.
+    // aisle split per coach class - Business 1+2 (A | B C), Economy 2+2 (A B | C D)
+    private static (int left, int right) GetSeatColumns(CoachVariant coachClass) =>
+        coachClass == CoachVariant.Business ? (1, 2) : (2, 2);
+
+    // "12A" -> seat number, using the same column layout as PrintSeatGrid.
     private static int ParseSeatLabel(string label, Schedule schedule)
     {
         label = label.Trim().ToUpper();
@@ -361,8 +365,8 @@ public class MenuHandler
                 "Invalid seat format. Use row + column letter (e.g. 1A, 2B)."
             );
 
-        bool isBusiness = schedule.BusRef.CoachClass == CoachVariant.Business;
-        int totalCols = isBusiness ? 3 : 4;
+        var (left, right) = GetSeatColumns(schedule.BusRef.CoachClass);
+        int totalCols = left + right;
 
         // last char is the column, the rest is the row
         if (!int.TryParse(label[..^1], out int row) || row < 1)
@@ -394,11 +398,8 @@ public class MenuHandler
     {
         int totalSeats = schedule.BusRef.TotalSeats;
         var reserved = schedule.GetReservedSeats();
-        bool isBusiness = schedule.BusRef.CoachClass == CoachVariant.Business;
 
-        // Business: 1+2 (A | B C), Economy: 2+2 (A B | C D)
-        int leftCols = isBusiness ? 1 : 2;
-        int rightCols = isBusiness ? 2 : 2;
+        var (leftCols, rightCols) = GetSeatColumns(schedule.BusRef.CoachClass);
         int totalCols = leftCols + rightCols;
         int rows = (int)Math.Ceiling(totalSeats / (double)totalCols);
 
