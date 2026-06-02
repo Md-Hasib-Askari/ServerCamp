@@ -18,7 +18,7 @@ public class Invoice
         InvoiceId = invoiceId;
         TicketRef = ticket;
         AmountDue = amountDue;
-        GenerationDate = DateTime.UtcNow;
+        GenerationDate = DateTime.Now;
         Status = PaymentStatus.Unpaid;
     }
 

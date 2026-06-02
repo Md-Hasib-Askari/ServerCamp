@@ -27,7 +27,7 @@ public class Schedule
             throw new ArgumentException("Arrival city is required.");
         if (ticketPrice <= 0)
             throw new ArgumentException("Ticket price must be greater than zero.");
-        if (departDateTime <= DateTime.UtcNow)
+        if (departDateTime <= DateTime.Now)
             throw new ArgumentException("Departure must be in the future.");
 
         ScheduleId = scheduleId;

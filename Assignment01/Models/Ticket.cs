@@ -14,7 +14,7 @@ public class Ticket
         UserRef = user;
         ScheduleRef = schedule;
         SeatNumber = seatNumber;
-        BookingDate = DateTime.UtcNow;
+        BookingDate = DateTime.Now;
     }
 
     public override string ToString()
