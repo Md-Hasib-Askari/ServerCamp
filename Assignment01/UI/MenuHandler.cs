@@ -378,7 +378,13 @@ public class MenuHandler
             throw new FormatException($"Invalid column '{label[^1]}'. Valid columns: {validCols}.");
         }
 
-        return (row - 1) * totalCols + colIndex + 1;
+        int seatNumber = (row - 1) * totalCols + colIndex + 1;
+        if (seatNumber > schedule.BusRef.TotalSeats)
+            throw new FormatException(
+                $"Seat '{label}' does not exist. This bus has {schedule.BusRef.TotalSeats} seats."
+            );
+
+        return seatNumber;
     }
 
     private void PrintSeatGrid(Schedule schedule)
