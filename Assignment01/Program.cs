@@ -32,7 +32,7 @@ class Program
             invoiceRepo,
             idGenerator
         );
-        IInvoiceService invoiceService = new InvoiceService(invoiceRepo);
+        IInvoiceService invoiceService = new InvoiceService(invoiceRepo, userRepo);
 
         var menu = new MenuHandler(
             userService,

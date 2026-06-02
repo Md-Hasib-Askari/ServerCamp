@@ -8,14 +8,22 @@ namespace Assignment01.Services;
 public class InvoiceService : IInvoiceService
 {
     private readonly IBaseRepository<Invoice> _invoiceRepo;
+    private readonly IBaseRepository<User> _userRepo;
 
-    public InvoiceService(IBaseRepository<Invoice> invoiceRepo)
+    public InvoiceService(IBaseRepository<Invoice> invoiceRepo, IBaseRepository<User> userRepo)
     {
         _invoiceRepo = invoiceRepo;
+        _userRepo = userRepo;
     }
 
-    public IEnumerable<Invoice> GetUserInvoices(string userId) =>
-        _invoiceRepo.GetAll().Where(i => i.UserId == userId);
+    public IEnumerable<Invoice> GetUserInvoices(string userId)
+    {
+        // Validate the user exists
+        if (_userRepo.GetById(userId) is null)
+            throw new KeyNotFoundException($"User '{userId}' not found.");
+
+        return _invoiceRepo.GetAll().Where(i => i.UserId == userId);
+    }
 
     public Invoice ProcessPayment(string invoiceId)
     {
