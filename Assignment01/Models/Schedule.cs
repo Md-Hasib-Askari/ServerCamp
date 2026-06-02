@@ -21,6 +21,15 @@ public class Schedule
         Bus bus
     )
     {
+        if (string.IsNullOrWhiteSpace(departCity))
+            throw new ArgumentException("Departure city is required.");
+        if (string.IsNullOrWhiteSpace(arrivalCity))
+            throw new ArgumentException("Arrival city is required.");
+        if (ticketPrice <= 0)
+            throw new ArgumentException("Ticket price must be greater than zero.");
+        if (departDateTime <= DateTime.Now)
+            throw new ArgumentException("Departure must be in the future.");
+
         ScheduleId = scheduleId;
         DepartureCity = departCity;
         ArrivalCity = arrivalCity;
@@ -45,7 +54,8 @@ public class Schedule
             && !_reservedSeat.Contains(seatNumber);
     }
 
-    public IReadOnlyCollection<int> GetReservedSeats() => _reservedSeat;
+    // return a copy so callers can't mutate our internal set
+    public IReadOnlyCollection<int> GetReservedSeats() => _reservedSeat.ToArray();
 
     public int AvailableSeats => BusRef.TotalSeats - _reservedSeat.Count;
 

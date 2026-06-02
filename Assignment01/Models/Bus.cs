@@ -17,6 +17,9 @@ public class Bus
 
     public Bus(string busId, string coachNumber, CoachVariant coachVariant)
     {
+        if (string.IsNullOrWhiteSpace(coachNumber))
+            throw new ArgumentException("Coach number is required.");
+
         BusId = busId;
         CoachNumber = coachNumber;
         CoachClass = coachVariant;
