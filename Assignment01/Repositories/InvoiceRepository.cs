@@ -1,7 +1,7 @@
 using Assignment01.Interfaces;
 using Assignment01.Models;
 
-namespace Assignment01.Services;
+namespace Assignment01.Repositories;
 
 public class InvoiceRepository : IBaseRepository<Invoice>
 {
