@@ -34,6 +34,16 @@ public class InvoiceService : IInvoiceService
         if (invoice.Status == PaymentStatus.Paid)
             throw new InvalidOperationException($"Invoice '{invoiceId}' is already paid.");
 
+        var schedule = invoice.TicketRef.ScheduleRef;
+        int seatNumber = invoice.TicketRef.SeatNumber;
+
+        // Payment is what confirms the seat - if someone else already paid for it, this invoice can't be honored
+        if (!schedule.IsSeatAvailable(seatNumber))
+            throw new InvalidOperationException(
+                $"Seat {seatNumber} has already been booked by someone else. This invoice can no longer be paid."
+            );
+
+        schedule.ReserveSeat(seatNumber);
         invoice.MarkAsPaid();
         return invoice;
     }

@@ -41,8 +41,9 @@ public class BookingService : IBookingService
             _scheduleRepo.GetById(scheduleId)
             ?? throw new KeyNotFoundException($"Schedule '{scheduleId}' not found.");
 
-        // ReserveSeat validates availability and throws if the seat is taken
-        schedule.ReserveSeat(seatNumber);
+        // Block only seats already confirmed by a payment - unpaid bookings don't hold the seat
+        if (!schedule.IsSeatAvailable(seatNumber))
+            throw new InvalidOperationException($"Seat {seatNumber} is not available.");
 
         var ticket = new Ticket(_idGenerator.GenerateTicketId(), user, schedule, seatNumber);
         _ticketRepo.Add(ticket);

@@ -475,7 +475,18 @@ public class MenuHandler
             }
 
             ConsoleHelper.PrintInfo("User Invoices:");
-            invoices.ForEach(i => ConsoleHelper.PrintItem(i.ToString()));
+            foreach (var i in invoices)
+            {
+                // an unpaid invoice whose seat is no longer free was lost to another payment
+                bool seatLost =
+                    i.Status == PaymentStatus.Unpaid
+                    && !i.TicketRef.ScheduleRef.IsSeatAvailable(i.TicketRef.SeatNumber);
+
+                if (seatLost)
+                    ConsoleHelper.PrintItem($"{i}  [SEAT TAKEN - cannot pay]");
+                else
+                    ConsoleHelper.PrintItem(i.ToString());
+            }
             ConsoleHelper.PrintSeparator();
 
             string invoiceId = ConsoleHelper.ReadInput("Invoice ID");
