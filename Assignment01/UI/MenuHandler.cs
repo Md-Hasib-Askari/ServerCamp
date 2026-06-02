@@ -1,8 +1,9 @@
-namespace Assignment01.UI;
-
+using System.Globalization;
 using Assignment01.Enums;
 using Assignment01.Interfaces.Services;
 using Assignment01.Models;
+
+namespace Assignment01.UI;
 
 public class MenuHandler
 {
@@ -74,8 +75,12 @@ public class MenuHandler
             string coach = ConsoleHelper.ReadInput("Coach Number");
             Console.WriteLine();
             Console.WriteLine("  Bus Coach Class:");
-            Console.WriteLine($"    1. Economy  ({Bus.GetSeatCapacity(CoachVariant.Economy)} seats)");
-            Console.WriteLine($"    2. Business ({Bus.GetSeatCapacity(CoachVariant.Business)} seats)");
+            Console.WriteLine(
+                $"    1. Economy  ({Bus.GetSeatCapacity(CoachVariant.Economy)} seats)"
+            );
+            Console.WriteLine(
+                $"    2. Business ({Bus.GetSeatCapacity(CoachVariant.Business)} seats)"
+            );
             string classChoice = ConsoleHelper.ReadInput("Select Coach Class (1/2)");
 
             CoachVariant coachClass = classChoice switch
@@ -141,7 +146,7 @@ public class MenuHandler
                     dateStr,
                     "dd-MM-yyyy HH:mm",
                     null,
-                    System.Globalization.DateTimeStyles.None,
+                    DateTimeStyles.None,
                     out DateTime depDateTime
                 )
             )
