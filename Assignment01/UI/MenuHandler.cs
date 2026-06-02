@@ -352,6 +352,7 @@ public class MenuHandler
         ConsoleHelper.PressAnyKey();
     }
 
+    // "12A" -> seat number. Column count must match PrintSeatGrid.
     private static int ParseSeatLabel(string label, Schedule schedule)
     {
         label = label.Trim().ToUpper();
@@ -363,11 +364,13 @@ public class MenuHandler
         bool isBusiness = schedule.BusRef.CoachClass == CoachVariant.Business;
         int totalCols = isBusiness ? 3 : 4;
 
+        // last char is the column, the rest is the row
         if (!int.TryParse(label[..^1], out int row) || row < 1)
             throw new FormatException(
                 "Invalid row number. Must be a positive integer (e.g. 1A, 2C)."
             );
 
+        // 'A' -> 0, 'B' -> 1, ...
         int colIndex = label[^1] - 'A';
         if (colIndex < 0 || colIndex >= totalCols)
         {

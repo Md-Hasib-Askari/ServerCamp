@@ -6,6 +6,8 @@ public class Invoice
 {
     public string InvoiceId { get; private set; }
     public Ticket TicketRef { get; private set; }
+
+    // pulled from the ticket's user so we don't store it twice
     public string UserId => TicketRef.UserRef.UserId;
     public decimal AmountDue { get; private set; }
     public DateTime GenerationDate { get; private set; }

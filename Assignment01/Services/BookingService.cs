@@ -44,6 +44,7 @@ public class BookingService : IBookingService
         if (!schedule.IsSeatAvailable(seatNumber))
             throw new InvalidOperationException($"Seat {seatNumber} is not available.");
 
+        // reserve the seat, then create the ticket + its invoice together
         schedule.ReserveSeat(seatNumber);
 
         var ticket = new Ticket(_idGenerator.GenerateTicketId(), user, schedule, seatNumber);
