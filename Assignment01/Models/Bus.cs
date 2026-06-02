@@ -20,14 +20,16 @@ public class Bus
         if (string.IsNullOrWhiteSpace(coachNumber))
             throw new ArgumentException("Coach number is required.");
 
-        if (!SeatingCapacity.TryGetValue(coachVariant, out int seats))
-            throw new ArgumentException($"No seating capacity defined for {coachVariant}.");
-
         BusId = busId;
         CoachNumber = coachNumber;
         CoachClass = coachVariant;
-        TotalSeats = seats;
+        TotalSeats = GetSeatCapacity(coachVariant);
     }
+
+    public static int GetSeatCapacity(CoachVariant coachVariant) =>
+        SeatingCapacity.TryGetValue(coachVariant, out int seats)
+            ? seats
+            : throw new ArgumentException($"No seating capacity defined for {coachVariant}.");
 
     public override string ToString()
     {

@@ -74,8 +74,8 @@ public class MenuHandler
             string coach = ConsoleHelper.ReadInput("Coach Number");
             Console.WriteLine();
             Console.WriteLine("  Bus Coach Class:");
-            Console.WriteLine("    1. Economy  (50 seats)");
-            Console.WriteLine("    2. Business (30 seats)");
+            Console.WriteLine($"    1. Economy  ({Bus.GetSeatCapacity(CoachVariant.Economy)} seats)");
+            Console.WriteLine($"    2. Business ({Bus.GetSeatCapacity(CoachVariant.Business)} seats)");
             string classChoice = ConsoleHelper.ReadInput("Select Coach Class (1/2)");
 
             CoachVariant coachClass = classChoice switch
