@@ -71,18 +71,19 @@ class Program
     [5] Add a new schedule
     [6] View all schedules
     [7] View schedule details
+    [8] View available seats
 
   ==============================
   -- Book a Trip --
   ==============================
-    [8] Book a ticket
-    [9] View my tickets
+    [9] Book a ticket
+   [10] View my tickets
 
   ==============================
   -- Billing and Payments --
   ==============================
-   [10] View my invoices
-   [11] Pay an invoice
+   [11] View my invoices
+   [12] Pay an invoice
 
   ==============================
     [0] Exit"
@@ -117,15 +118,18 @@ class Program
                     menu.HandleDisplayScheduleDetails();
                     break;
                 case "8":
-                    menu.HandleBookTicket();
+                    menu.HandleDisplayAvailableSeats();
                     break;
                 case "9":
-                    menu.HandleDisplayUserTickets();
+                    menu.HandleBookTicket();
                     break;
                 case "10":
-                    menu.HandleDisplayUserInvoices();
+                    menu.HandleDisplayUserTickets();
                     break;
                 case "11":
+                    menu.HandleDisplayUserInvoices();
+                    break;
+                case "12":
                     menu.HandleProcessPayment();
                     break;
                 case "0":

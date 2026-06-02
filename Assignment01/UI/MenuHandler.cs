@@ -206,7 +206,7 @@ public class MenuHandler
             ConsoleHelper.PrintSeparator();
             ConsoleHelper.PrintItem($"Schedule ID   : {schedule.ScheduleId}");
             ConsoleHelper.PrintItem(
-                $"Route         : {schedule.DepartureCity} → {schedule.ArrivalCity}"
+                $"Route         : {schedule.DepartureCity} -> {schedule.ArrivalCity}"
             );
             ConsoleHelper.PrintItem(
                 $"Departure     : {schedule.DepartureDateTime:dd-MM-yyyy HH:mm}"
@@ -218,6 +218,43 @@ public class MenuHandler
             ConsoleHelper.PrintItem($"Available     : {schedule.AvailableSeats}");
             PrintSeatGrid(schedule);
             ConsoleHelper.PrintSeparator();
+        }
+        catch (Exception ex)
+        {
+            ConsoleHelper.PrintError(ex.Message);
+        }
+        ConsoleHelper.PressAnyKey();
+    }
+
+    public void HandleDisplayAvailableSeats()
+    {
+        ConsoleHelper.PrintHeader("Available Seats");
+        try
+        {
+            var schedules = _scheduleService.GetAllSchedule().ToList();
+            if (!schedules.Any())
+            {
+                ConsoleHelper.PrintInfo("No schedules created yet.");
+                ConsoleHelper.PressAnyKey();
+                return;
+            }
+
+            ConsoleHelper.PrintInfo("Available Schedules:");
+            schedules.ForEach(s => ConsoleHelper.PrintItem(s.ToString()));
+            ConsoleHelper.PrintSeparator();
+
+            string id = ConsoleHelper.ReadInput("Schedule ID");
+            var schedule =
+                _scheduleService.GetScheduleById(id)
+                ?? throw new KeyNotFoundException($"Schedule '{id}' not found.");
+
+            ConsoleHelper.PrintItem(
+                $"Route         : {schedule.DepartureCity} -> {schedule.ArrivalCity}"
+            );
+            ConsoleHelper.PrintItem(
+                $"Available     : {schedule.AvailableSeats}/{schedule.BusRef.TotalSeats}"
+            );
+            PrintSeatGrid(schedule);
         }
         catch (Exception ex)
         {
