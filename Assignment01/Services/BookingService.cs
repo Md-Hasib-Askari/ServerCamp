@@ -53,6 +53,12 @@ public class BookingService : IBookingService
         return (ticket, invoice);
     }
 
-    public IEnumerable<Ticket> GetUserTickets(string userId) =>
-        _ticketRepo.GetAll().Where(t => t.UserRef.UserId == userId);
+    public IEnumerable<Ticket> GetUserTickets(string userId)
+    {
+        // Validate the user exists
+        if (_userRepo.GetById(userId) is null)
+            throw new KeyNotFoundException($"User '{userId}' not found.");
+
+        return _ticketRepo.GetAll().Where(t => t.UserRef.UserId == userId);
+    }
 }
