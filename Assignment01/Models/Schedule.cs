@@ -73,7 +73,7 @@ public class Schedule
     public override string ToString()
     {
         return $"[{ScheduleId}] {DepartureCity} -> {ArrivalCity} | "
-            + $"Departure: {DepartureDateTime:yyyy-MM-dd HH:mm} | "
+            + $"Departure: {DepartureDateTime:dd-MM-yyyy HH:mm} | "
             + $"Price: {TicketPrice:N2} BDT | Bus: {BusRef.BusId} ({BusRef.CoachClass}) | "
             + $"Available Seats: {AvailableSeats}/{BusRef.TotalSeats}";
     }

@@ -21,8 +21,8 @@ public class Ticket
     {
         return $"[{TicketId}] User: {UserRef?.FullName} | "
             + $"Route: {ScheduleRef?.DepartureCity} -> {ScheduleRef?.ArrivalCity} | "
-            + $"Departure: {ScheduleRef?.DepartureDateTime:yyyy-MM-dd HH:mm} | "
+            + $"Departure: {ScheduleRef?.DepartureDateTime:dd-MM-yyyy HH:mm} | "
             + $"Seat: {SeatNumber} ({ScheduleRef?.BusRef?.CoachClass}) | "
-            + $"Booked: {BookingDate:yyyy-MM-dd HH:mm}";
+            + $"Booked: {BookingDate:dd-MM-yyyy HH:mm}";
     }
 }

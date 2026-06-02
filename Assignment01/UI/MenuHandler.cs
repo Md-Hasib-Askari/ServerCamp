@@ -132,20 +132,20 @@ public class MenuHandler
 
             string dep = ConsoleHelper.ReadInput("Departure City");
             string arr = ConsoleHelper.ReadInput("Arrival City");
-            string dateStr = ConsoleHelper.ReadInput("Departure Date & Time (yyyy-MM-dd HH:mm)");
+            string dateStr = ConsoleHelper.ReadInput("Departure Date & Time (dd-MM-yyyy HH:mm)");
             string priceStr = ConsoleHelper.ReadInput("Ticket Price (BDT)");
             string busId = ConsoleHelper.ReadInput("Bus ID");
 
             if (
                 !DateTime.TryParseExact(
                     dateStr,
-                    "yyyy-MM-dd HH:mm",
+                    "dd-MM-yyyy HH:mm",
                     null,
                     System.Globalization.DateTimeStyles.None,
                     out DateTime depDateTime
                 )
             )
-                throw new FormatException("Invalid date format. Use: yyyy-MM-dd HH:mm");
+                throw new FormatException("Invalid date format. Use: dd-MM-yyyy HH:mm");
 
             if (!decimal.TryParse(priceStr, out decimal price))
                 throw new FormatException("Invalid price. Enter a numeric value.");
@@ -204,7 +204,7 @@ public class MenuHandler
                 $"Route         : {schedule.DepartureCity} → {schedule.ArrivalCity}"
             );
             ConsoleHelper.PrintItem(
-                $"Departure     : {schedule.DepartureDateTime:yyyy-MM-dd HH:mm}"
+                $"Departure     : {schedule.DepartureDateTime:dd-MM-yyyy HH:mm}"
             );
             ConsoleHelper.PrintItem($"Ticket Price  : {schedule.TicketPrice:N2} BDT");
             ConsoleHelper.PrintItem($"Bus ID        : {schedule.BusRef.BusId}");
