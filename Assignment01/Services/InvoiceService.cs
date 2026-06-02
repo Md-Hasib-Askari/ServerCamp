@@ -8,12 +8,10 @@ namespace Assignment01.Services;
 public class InvoiceService : IInvoiceService
 {
     private readonly IBaseRepository<Invoice> _invoiceRepo;
-    private readonly IBaseRepository<User> _userRepo;
 
-    public InvoiceService(IBaseRepository<Invoice> invoiceRepo, IBaseRepository<User> userRepo)
+    public InvoiceService(IBaseRepository<Invoice> invoiceRepo)
     {
         _invoiceRepo = invoiceRepo;
-        _userRepo = userRepo;
     }
 
     public IEnumerable<Invoice> GetUserInvoices(string userId) =>

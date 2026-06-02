@@ -9,8 +9,6 @@ public class UserRepository : IBaseRepository<User>
 
     public void Add(User user) => _users[user.UserId] = user;
 
-    public bool Exists(string userId) => _users.ContainsKey(userId);
-
     public IEnumerable<User> GetAll() => _users.Values;
 
     public User? GetById(string userId) => _users.TryGetValue(userId, out var u) ? u : null;

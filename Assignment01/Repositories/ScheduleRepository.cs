@@ -9,8 +9,6 @@ public class ScheduleRepository : IBaseRepository<Schedule>
 
     public void Add(Schedule schedule) => _schedules[schedule.ScheduleId] = schedule;
 
-    public bool Exists(string scheduleId) => _schedules.ContainsKey(scheduleId);
-
     public IEnumerable<Schedule> GetAll() => _schedules.Values;
 
     public Schedule? GetById(string scheduleId) =>

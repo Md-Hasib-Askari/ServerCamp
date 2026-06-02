@@ -9,8 +9,6 @@ public class InvoiceRepository : IBaseRepository<Invoice>
 
     public void Add(Invoice invoice) => _invoices[invoice.InvoiceId] = invoice;
 
-    public bool Exists(string invoiceId) => _invoices.ContainsKey(invoiceId);
-
     public IEnumerable<Invoice> GetAll() => _invoices.Values;
 
     public Invoice? GetById(string invoiceId) =>

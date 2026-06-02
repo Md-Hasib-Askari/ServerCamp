@@ -9,8 +9,6 @@ public class TicketRepository : IBaseRepository<Ticket>
 
     public void Add(Ticket ticket) => _tickets[ticket.TicketId] = ticket;
 
-    public bool Exists(string ticketId) => _tickets.ContainsKey(ticketId);
-
     public IEnumerable<Ticket> GetAll() => _tickets.Values;
 
     public Ticket? GetById(string ticketId) => _tickets.TryGetValue(ticketId, out var t) ? t : null;
