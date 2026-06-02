@@ -32,6 +32,9 @@ public class ScheduleService : IScheduleService
         var bus =
             _busRepo.GetById(busId) ?? throw new KeyNotFoundException($"Bus '{busId}' not found.");
 
+        // Validate first so a rejected schedule never consumes an ID.
+        Schedule.Validate(departCity, arrivalCity, departDateTime, ticketPrice);
+
         var schedule = new Schedule(
             _idGenerator.GenerateScheduleId(),
             departCity,

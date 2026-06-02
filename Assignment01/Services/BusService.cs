@@ -18,6 +18,8 @@ public class BusService : IBusService
 
     public Bus CreateBus(string coachNumber, CoachVariant coachClass)
     {
+        // Validate first so a rejected bus never consumes an ID.
+        Bus.Validate(coachNumber);
         var bus = new Bus(_idGenerator.GenerateBusId(), coachNumber, coachClass);
         _busRepo.Add(bus);
         return bus;

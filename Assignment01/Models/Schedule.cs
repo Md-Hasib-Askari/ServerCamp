@@ -21,6 +21,24 @@ public class Schedule
         Bus bus
     )
     {
+        Validate(departCity, arrivalCity, departDateTime, ticketPrice);
+
+        ScheduleId = scheduleId;
+        DepartureCity = departCity;
+        ArrivalCity = arrivalCity;
+        DepartureDateTime = departDateTime;
+        TicketPrice = ticketPrice;
+        BusRef = bus;
+    }
+
+    // Lets a caller check the inputs before generating an ID, so a rejected schedule wastes no ID.
+    public static void Validate(
+        string departCity,
+        string arrivalCity,
+        DateTime departDateTime,
+        decimal ticketPrice
+    )
+    {
         if (string.IsNullOrWhiteSpace(departCity))
             throw new ArgumentException("Departure city is required.");
         if (string.IsNullOrWhiteSpace(arrivalCity))
@@ -29,13 +47,6 @@ public class Schedule
             throw new ArgumentException("Ticket price must be greater than zero.");
         if (departDateTime <= DateTime.Now)
             throw new ArgumentException("Departure must be in the future.");
-
-        ScheduleId = scheduleId;
-        DepartureCity = departCity;
-        ArrivalCity = arrivalCity;
-        DepartureDateTime = departDateTime;
-        TicketPrice = ticketPrice;
-        BusRef = bus;
     }
 
     public void ReserveSeat(int seatNumber)

@@ -17,6 +17,8 @@ public class UserService : IUserService
 
     public User CreateUser(string fullname, string mobileNumber, string email)
     {
+        // Validate first so a rejected user never consumes an ID.
+        User.Validate(fullname, mobileNumber, email);
         var user = new User(_idGenerator.GenerateUserId(), fullname, mobileNumber, email);
         _userRepo.Add(user);
         return user;

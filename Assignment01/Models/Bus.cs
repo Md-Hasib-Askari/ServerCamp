@@ -17,13 +17,19 @@ public class Bus
 
     public Bus(string busId, string coachNumber, CoachVariant coachVariant)
     {
-        if (string.IsNullOrWhiteSpace(coachNumber))
-            throw new ArgumentException("Coach number is required.");
+        Validate(coachNumber);
 
         BusId = busId;
         CoachNumber = coachNumber;
         CoachClass = coachVariant;
         TotalSeats = GetSeatCapacity(coachVariant);
+    }
+
+    // Lets a caller check the inputs before generating an ID, so a rejected bus wastes no ID.
+    public static void Validate(string coachNumber)
+    {
+        if (string.IsNullOrWhiteSpace(coachNumber))
+            throw new ArgumentException("Coach number is required.");
     }
 
     public static int GetSeatCapacity(CoachVariant coachVariant) =>
