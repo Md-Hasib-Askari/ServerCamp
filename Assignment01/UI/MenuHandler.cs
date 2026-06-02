@@ -206,7 +206,7 @@ public class MenuHandler
             ConsoleHelper.PrintItem(
                 $"Departure     : {schedule.DepartureDateTime:yyyy-MM-dd HH:mm}"
             );
-            ConsoleHelper.PrintItem($"Ticket Price  : {schedule.TicketPrice:C}");
+            ConsoleHelper.PrintItem($"Ticket Price  : {schedule.TicketPrice:N2} BDT");
             ConsoleHelper.PrintItem($"Bus ID        : {schedule.BusRef.BusId}");
             ConsoleHelper.PrintItem($"Bus Class     : {schedule.BusRef.CoachClass}");
             ConsoleHelper.PrintItem($"Total Seats   : {schedule.BusRef.TotalSeats}");

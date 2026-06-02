@@ -30,7 +30,7 @@ public class Invoice
     public override string ToString()
     {
         return $"[{InvoiceId}] Ticket: {TicketRef.TicketId} | User: {UserId} | "
-            + $"Amount: {AmountDue:C} | Date: {GenerationDate:yyyy-MM-dd HH:mm} | "
+            + $"Amount: {AmountDue:N2} BDT | Date: {GenerationDate:yyyy-MM-dd HH:mm} | "
             + $"Status: {Status}";
     }
 }

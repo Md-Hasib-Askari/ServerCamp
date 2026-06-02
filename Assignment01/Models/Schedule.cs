@@ -74,7 +74,7 @@ public class Schedule
     {
         return $"[{ScheduleId}] {DepartureCity} -> {ArrivalCity} | "
             + $"Departure: {DepartureDateTime:yyyy-MM-dd HH:mm} | "
-            + $"Price: {TicketPrice:C} | Bus: {BusRef.BusId} ({BusRef.CoachClass}) | "
+            + $"Price: {TicketPrice:N2} BDT | Bus: {BusRef.BusId} ({BusRef.CoachClass}) | "
             + $"Available Seats: {AvailableSeats}/{BusRef.TotalSeats}";
     }
 }
