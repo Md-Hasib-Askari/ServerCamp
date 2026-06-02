@@ -8,6 +8,8 @@ public class Schedule
     public DateTime DepartureDateTime { get; private set; }
     public decimal TicketPrice { get; private set; }
     public Bus BusRef { get; private set; }
+
+    // seat numbers already booked on this trip
     private readonly HashSet<int> _reservedSeat = new();
 
     public Schedule(
@@ -27,7 +29,14 @@ public class Schedule
         BusRef = bus;
     }
 
-    public void ReserveSeat(int seatNumber) => _reservedSeat.Add(seatNumber);
+    public void ReserveSeat(int seatNumber)
+    {
+        // guard the invariant here too, not just at the call site
+        if (!IsSeatAvailable(seatNumber))
+            throw new InvalidOperationException($"Seat {seatNumber} is not available.");
+
+        _reservedSeat.Add(seatNumber);
+    }
 
     public bool IsSeatAvailable(int seatNumber)
     {
